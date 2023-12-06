@@ -1,25 +1,22 @@
+import Vector from "./libs/vector"
 
 type BackgroundConfig = {
     img: HTMLImageElement
-}
-type Position = {
-    x: number
-    y: number
 }
 
 export class Background {
     img: HTMLImageElement
     width: number
     height: number
-    rightPos: Position
-    leftPos: Position
+    rightPos: Vector
+    leftPos: Vector
 
     constructor(config: BackgroundConfig, y: number) {
         this.img = config.img
         this.height = y
         this.width = y * (this.img.width / this.img.height)
-        this.leftPos = { x: 0, y: 0 }
-        this.rightPos = { x: this.width - 4, y: 0 }
+        this.leftPos = new Vector(0, 0)
+        this.rightPos = new Vector(this.width - 4, 0)
     }
 
     public update() {

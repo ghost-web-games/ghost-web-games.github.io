@@ -1,5 +1,6 @@
-import Mouse from "../mouse"
-import Grid from "./grid"
+import Mouse from "../mouse.js"
+import AssetLoader from "./assetloader.js"
+import Grid from "./grid.js"
 
 
 export default class MapEditor {
@@ -11,6 +12,7 @@ export default class MapEditor {
     canvas: HTMLCanvasElement
     ctx: CanvasRenderingContext2D | null
     mouse: Mouse
+    grass: AssetLoader
 
     constructor() {
         this.canvas = document.querySelector('canvas') as HTMLCanvasElement
@@ -21,6 +23,7 @@ export default class MapEditor {
         this.mouse = new Mouse(this.canvas)
         this.grid = new Grid(this.canvas.width, 
             this.canvas.height, 16)
+        this.grass = new AssetLoader("#bg1-img", 16)
 
         this.init()
     }
@@ -28,6 +31,7 @@ export default class MapEditor {
 
     public init() {
         this.grid.draw(this.ctx)
+        this.grass.draw(this.ctx)
     }
 
     public render() {
@@ -38,8 +42,10 @@ export default class MapEditor {
 
             this.grid.update(this.mouse.Pos)
             this.grid.draw(this.ctx)
+            this.grass.draw(this.ctx)
             requestAnimationFrame(frame)
         }
+        frame()
     }
 
     resize() {

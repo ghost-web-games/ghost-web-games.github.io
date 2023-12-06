@@ -1,10 +1,11 @@
+import Vector from "./libs/vector";
 export class Background {
     constructor(config, y) {
         this.img = config.img;
         this.height = y;
         this.width = y * (this.img.width / this.img.height);
-        this.leftPos = { x: 0, y: 0 };
-        this.rightPos = { x: this.width - 4, y: 0 };
+        this.leftPos = new Vector(0, 0);
+        this.rightPos = new Vector(this.width - 4, 0);
     }
     update() {
     }
