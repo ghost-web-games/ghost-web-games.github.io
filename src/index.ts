@@ -1,4 +1,8 @@
-import MapEditor from "./js/editor/mapeditor.js";
+/*import App from "./app";
+
+const app = new App();
+*/
+import MapEditor from "./editor/mapeditor";
 
 const app = new MapEditor();
 

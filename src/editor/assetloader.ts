@@ -1,6 +1,7 @@
-import Vector from "../libs/vector.js"
+import { IDraw } from "../interface/IDraw"
+import Vector from "../libs/vector"
 
-export default class AssetLoader {
+export default class AssetLoader { 
     img: HTMLImageElement
     gridPx: number
     rightPos: Vector
@@ -25,6 +26,5 @@ export default class AssetLoader {
             this.leftPos.x, this.leftPos.y, 
             this.img.width, this.img.height
         )
-
     }
 }

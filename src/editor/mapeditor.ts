@@ -1,6 +1,10 @@
-import Mouse from "../mouse.js"
-import AssetLoader from "./assetloader.js"
-import Grid from "./grid.js"
+import EditorFactory from "../factory/editorfactory"
+import { Mouse } from "../mouse"
+import AssetLoader from "./assetloader"
+import Grid from "./grid"
+import { GUI } from "dat.gui"
+import TileMap from "./tilemap"
+import { IDraw } from "../interface/IDraw"
 
 
 export default class MapEditor {
@@ -12,27 +16,38 @@ export default class MapEditor {
     canvas: HTMLCanvasElement
     ctx: CanvasRenderingContext2D | null
     mouse: Mouse
-    grass: AssetLoader
+    tilemap: TileMap
+    gui: GUI
+    drawObject: Array<IDraw>
+    magnification: number
 
     constructor() {
-        this.canvas = document.querySelector('canvas') as HTMLCanvasElement
-        this.ctx = this.canvas.getContext('2d')
+        const factory = new EditorFactory(16)
+        this.canvas = factory.Canvas
+        this.ctx = factory.Context
+
+        this.mouse = factory.Mouse
+        this.grid = factory.Grid
+        this.gui = factory.Gui
+        this.tilemap = factory.TileMap
+
+        this.drawObject = new Array<IDraw>()
+        this.drawObject.push(this.grid)
+        this.drawObject.push(this.tilemap)
+
+        this.mouse.RegisterHandler(this.grid)
+        this.mouse.RegisterHandler(this.tilemap)
+
+        this.magnification = 2
+
         this.resize()
         window.addEventListener('resize', this.resize.bind(this))
-
-        this.mouse = new Mouse(this.canvas)
-        this.grid = new Grid(this.canvas.width, 
-            this.canvas.height, 16)
-        this.grass = new AssetLoader("#bg1-img", 16)
-
-        this.init()
     }
-
 
     public init() {
-        this.grid.draw(this.ctx)
-        this.grass.draw(this.ctx)
+
     }
+
 
     public render() {
         let now, delta
@@ -40,9 +55,9 @@ export default class MapEditor {
 
         const frame = () => {
 
-            this.grid.update(this.mouse.Pos)
-            this.grid.draw(this.ctx)
-            this.grass.draw(this.ctx)
+            this.drawObject.forEach((o)=> {
+                o.draw(this.ctx, this.magnification)
+            })
             requestAnimationFrame(frame)
         }
         frame()
@@ -57,5 +72,8 @@ export default class MapEditor {
         this.canvas.width = MapEditor.width * MapEditor.dpr
         this.canvas.height = MapEditor.height * MapEditor.dpr
         this.ctx?.scale(MapEditor.dpr, MapEditor.dpr)
+        this.drawObject.forEach((o) => {
+            o.resize(this.canvas.width, this.canvas.height)
+        })
     }
 }

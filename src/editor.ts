@@ -1,6 +1,6 @@
-import App from "./js/app.js";
+import MapEditor from "./editor/mapeditor";
 
-const app = new App();
+const app = new MapEditor();
 
 window.addEventListener('load', () => {
     app.init();

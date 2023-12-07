@@ -1,4 +1,4 @@
-import { Background } from "./background.js"
+import { Background } from "./background"
 
 
 export default class App {
