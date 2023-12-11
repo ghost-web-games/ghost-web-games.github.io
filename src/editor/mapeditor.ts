@@ -10,8 +10,8 @@ import { IDraw } from "../interface/IDraw"
 export default class MapEditor {
     static dpr = devicePixelRatio > 1 ? 2 : 1
     static interval = 1000 / 60
-    static width = 1024
-    static height = 768
+    static width = innerWidth
+    static height = innerHeight
     grid: Grid
     canvas: HTMLCanvasElement
     ctx: CanvasRenderingContext2D | null
@@ -45,6 +45,12 @@ export default class MapEditor {
     }
 
     public init() {
+        this.resize()
+        this.gui.add(this, "magnification")
+        this.gui.add(MapEditor, "width")
+        this.gui.add(MapEditor, "height")
+        this.gui.add(this.tilemap.leftPos, "x")
+        this.gui.add(this.tilemap.leftPos, "y")
 
     }
 
@@ -64,16 +70,13 @@ export default class MapEditor {
     }
 
     resize() {
-        MapEditor.width = innerWidth
-        MapEditor.height = innerHeight
-
-        this.canvas.style.width = '100%'
-        this.canvas.style.height = '100%'
+        this.canvas.style.width = MapEditor.width + "px"
+        this.canvas.style.height = MapEditor.height + "px"
         this.canvas.width = MapEditor.width * MapEditor.dpr
         this.canvas.height = MapEditor.height * MapEditor.dpr
         this.ctx?.scale(MapEditor.dpr, MapEditor.dpr)
         this.drawObject.forEach((o) => {
-            o.resize(this.canvas.width, this.canvas.height)
+            o.resize(this.canvas.width / MapEditor.dpr, this.canvas.height / MapEditor.dpr)
         })
     }
 }

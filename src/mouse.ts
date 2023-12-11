@@ -18,11 +18,11 @@ export class Mouse {
 
         canvas.onmousemove = e => this.overEvent(e.clientX, e.clientY)
         canvas.onmousedown = e => this.clickEvent(e.clientX, e.clientY)
-        canvas.onmouseup = e => this.clickupEvent(e.clientX, e.clientY)
+        canvas.onmouseup = e =>this.clickupEvent(e.clientX, e.clientY) 
         canvas.ontouchstart = e => this.clickEvent(e.touches[0].clientX, e.touches[0].clientY)
         canvas.ontouchmove = e => this.overEvent(e.touches[0].clientX, e.touches[0].clientY)
         canvas.ontouchcancel = () => this.pos.setXY(-1000, -1000)
-        canvas.ontouchend = () => this.pos.setXY(-1000, -1000)
+        canvas.ontouchend = (e) => this.clickupEvent(e.touches[0].clientX, e.touches[0].clientY)
     }
 
     overEvent(x: number, y: number) {

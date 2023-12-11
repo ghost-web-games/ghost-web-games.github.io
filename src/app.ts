@@ -1,40 +1,82 @@
-import { Background } from "./background"
+import { GUI } from "dat.gui"
+import { Mouse } from "./mouse"
+import AppFactory from "./factory/appfactory"
+import { IDraw } from "./interface/IDraw"
 
 
 export default class App {
-    static canvas = document.querySelector('canvas') as HTMLCanvasElement
-    static ctx = App.canvas.getContext('2d')
     static dpr = devicePixelRatio > 1 ? 2 : 1
     static interval = 1000 / 60
-    static width = 1024
-    static height = 768
-    backgrounds: Background[]
+    static width = innerWidth
+    static height = innerHeight
+    canvas: HTMLCanvasElement
+    ctx: CanvasRenderingContext2D | null
+    mouse: Mouse
+    drawObject: Array<IDraw>
+    gui: GUI
+    magnification: number
 
     constructor() {
-        this.backgrounds = [
-            new Background({
-                img: document.querySelector('#bg1-img') as HTMLImageElement,
-            }, App.height)
-        ]
+        const factory = new AppFactory(16)
+        this.canvas = factory.Canvas
+        this.ctx = factory.Context
+        this.mouse = factory.Mouse
+        this.gui = factory.Gui
+
+        this.drawObject = new Array<IDraw>()
+        this.magnification = 2
+
+
+        const bgs = factory.Backgrounds
+        bgs.forEach((bg) => {
+            this.mouse.RegisterHandler(bg)
+            this.drawObject.push(bg)
+        })
+
+        const player = factory.Player
+        this.mouse.RegisterHandler(player)
+        this.drawObject.push(player)
+
+        this.resize()
+        window.addEventListener('resize', this.resize.bind(this))
     }
 
     public init() {
-        App.canvas.width = App.width * App.dpr
-        App.canvas.height = App.height * App.dpr
-        App.ctx?.scale(App.dpr, App.dpr)
-        this.backgrounds.forEach(bg => {
-            bg.update()
-            bg.draw(App.ctx)
-        })
+        this.resize()
+        this.gui.add(this, "magnification")
     }
+
     public render() {
         let now, delta
         let then = Date.now()
 
         const frame = () => {
-
             requestAnimationFrame(frame)
+
+            now = Date.now()
+            delta = now - then
+            if (delta < App.interval) return
+
+            this.drawObject.forEach((o) => {
+                o.update()
+            })
+            this.drawObject.forEach((o) => {
+                o.draw(this.ctx, this.magnification)
+            })
+         
+            then = now - (delta % App.interval)
         }
 
+        requestAnimationFrame(frame)
+    }
+    resize() {
+        this.canvas.style.width = App.width + "px"
+        this.canvas.style.height = App.height + "px"
+        this.canvas.width = App.width * App.dpr
+        this.canvas.height = App.height * App.dpr
+        this.ctx?.scale(App.dpr, App.dpr)
+        this.drawObject.forEach((o) => {
+            o.resize(this.canvas.width / App.dpr, this.canvas.height / App.dpr)
+        })
     }
 }

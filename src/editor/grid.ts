@@ -33,6 +33,8 @@ export default class Grid implements IMouseEvent, IDraw {
         this.height = height
     }
 
+    public update() { }
+
     public draw(ctx: CanvasRenderingContext2D | null, magnification: number) {
         if (ctx == null) return
         this.mag = magnification
