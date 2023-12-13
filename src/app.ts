@@ -2,6 +2,9 @@ import { GUI } from "dat.gui"
 import { Mouse } from "./mouse"
 import AppFactory from "./factory/appfactory"
 import { IDraw } from "./interface/IDraw"
+import { IBox } from "./objects/boundingbox"
+import Player from "./objects/player"
+import Words from "./objects/words"
 
 
 export default class App {
@@ -15,6 +18,8 @@ export default class App {
     drawObject: Array<IDraw>
     gui: GUI
     magnification: number
+    player: Player
+    words: Words
 
     constructor() {
         const factory = new AppFactory(16)
@@ -26,16 +31,23 @@ export default class App {
         this.drawObject = new Array<IDraw>()
         this.magnification = 2
 
+        const userCont = factory.UserCont
+        this.drawObject.push(userCont)
+        this.mouse.RegisterHandler(userCont)
 
         const bgs = factory.Backgrounds
         bgs.forEach((bg) => {
-            this.mouse.RegisterHandler(bg)
             this.drawObject.push(bg)
+            userCont.RegisterMover(bg)
         })
 
-        const player = factory.Player
-        this.mouse.RegisterHandler(player)
-        this.drawObject.push(player)
+        this.player = factory.Player
+        this.drawObject.push(this.player)
+        userCont.RegisterMover(this.player)
+
+        this.words = factory.Word
+        this.drawObject.push(this.words)
+        userCont.RegisterMover(this.words)
 
         this.resize()
         window.addEventListener('resize', this.resize.bind(this))
@@ -56,6 +68,8 @@ export default class App {
             now = Date.now()
             delta = now - then
             if (delta < App.interval) return
+
+            this.words.CollidingCheck(this.player)
 
             this.drawObject.forEach((o) => {
                 o.update()

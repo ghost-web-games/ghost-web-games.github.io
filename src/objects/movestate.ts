@@ -1,4 +1,4 @@
-import { ObjConfig } from "../models/objconfig"
+import { ImgObjConfig } from "../models/objconfig"
 import Vector from "../libs/vector"
 
 export interface IMoveState{
@@ -21,7 +21,7 @@ export class MoveState implements IMoveState{
     mag: number
     static moving: boolean
 
-    constructor(config: ObjConfig) {
+    constructor(config: ImgObjConfig) {
         this.img = config.img
         this.pixel = config.pixel
         this.width = config.width

@@ -1,7 +1,9 @@
 import { Mouse } from "../mouse"
 import { GUI } from "dat.gui"
-import { Background } from "../background"
+import { Background } from "../objects/background"
 import Player from "../objects/player"
+import { UserController } from "../contoller/usercontoller"
+import Words from "../objects/words"
 
 
 export default class AppFactory {
@@ -11,6 +13,8 @@ export default class AppFactory {
     gui: GUI
     backgrounds: Background[]
     player: Player
+    userCont: UserController
+    words: Words
 
     constructor(gridPixel: number) {
         this.canvas = document.querySelector('canvas') as HTMLCanvasElement
@@ -31,8 +35,17 @@ export default class AppFactory {
         this.player = new Player({
             img: document.querySelector('#player') as HTMLImageElement, 
             pixel: 16, mag: 1, width: width, height: height,
-            tiles: [13, 16/*, 19, 22*/], idleTiles:[]})
+            tiles: [13, 16/*, 19, 22*/], idleTiles: []
+        })
+        this.userCont = new UserController({
+            pixel: 16, mag: 1, width: width, height: height,
+        })
+        this.words = new Words({
+            pixel: 16, mag: 1, width: width, height: height
+        })
     }
+    get Word(): Words {return this.words}
+    get UserCont(): UserController { return this.userCont }
     get Canvas(): HTMLCanvasElement { return this.canvas }
     get Context(): CanvasRenderingContext2D | null { return this.ctx}
     get Mouse(): Mouse { return this.mouse }
