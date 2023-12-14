@@ -1,0 +1,3 @@
+[submodule "ganada"]
+	path = ganada
+	url = https://github.com/ghost-web-games/ganada.git
