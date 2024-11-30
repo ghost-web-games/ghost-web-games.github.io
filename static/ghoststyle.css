@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp');
 
+.codex-editor__redactor { padding-bottom: 30px !important;}
 footer {
     /*
     position: fixed;
@@ -9,10 +10,8 @@ footer {
     width: 100%;
 }
 body {
-    margin-top: 50px;
 }
 .navbar {
-    width: 100%;
 }
 .profile-sm {
     width:40px;
@@ -27,12 +26,6 @@ a, a:hover, a:focus {
   margin: 0px;
 }
 header {
-    display: flex;
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    width: 100%;
 }
 .menubar {
     background-color: #2081E2 !important;
@@ -123,7 +116,7 @@ header {
     font-size: 1.5em;
     transform: translateY(5px);
 }
-.handcursor {
+.hand {
     cursor: pointer;
 }
 .maxtext{
@@ -158,6 +151,7 @@ header {
         transform: translate3d(-100%, 0, 0);
     }
 }
+
 .vertical-divider {
     border-right: 1px solid #ccc;
     height: 100%;
@@ -166,4 +160,79 @@ header {
     padding-right: 10px;
     padding-left: 10px;
     box-sizing: border-box;
+}
+
+/* 배경과 텍스트를 감쌀 컨테이너 */
+.container-parent {
+    position: relative;
+
+    /* 컨테이너 자체는 투명한 배경 */
+    background: transparent;
+}
+
+/* 배경 이미지가 적용될 div */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* 배경 이미지 설정 */
+    background-size: cover;
+    background-position: center;
+
+    /* 투명도 그라데이션 */
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
+}
+
+@keyframes moveBackground {
+    0% {
+        background-position: center;
+    }
+
+    25% {
+        background-position: 45% 55%;
+    }
+
+    50% {
+        background-position: 60% 40%;
+    }
+
+    75% {
+        background-position: 50% 70%;
+    }
+
+    100% {
+        background-position: center;
+    }
+}
+
+/* 확대 축소 애니메이션 */
+@keyframes zoomEffect {
+    0% {
+        background-size: 100%;
+    }
+
+    50% {
+        background-size: 110%;
+        /* 약간 확대 */
+    }
+
+    100% {
+        background-size: 100%;
+    }
+}
+
+.background.animated {
+    animation: moveBackground 20s infinite alternate ease-in-out, zoomEffect 20s infinite alternate ease-in-out;
+}
+
+/* 글자 스타일 */
+.t-shadow {
+    /* 텍스트가 읽기 쉽도록 추가적인 그림자 */
+    color:#fff;
+    text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
 }

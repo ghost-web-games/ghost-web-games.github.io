@@ -1,39 +1,18 @@
 <!-- 네비게이션바 -->
-<nav id="navbar" class="navbar navbar-expand-lg border-bottom">
-    <div class="container">
-        <a class="navbar-brand handcursor" onclick="ClickLoadPage('hons', false)">
+<nav id="navbar" class="navbar navbar-expand-lg p-0 pt-2">
+    <div class="container border-bottom p-0 pb-2">
+        <a class="hand blog-header-logo" onclick="ClickLoadPage('main', false)">
             <b>Ghost Games</b></a>
-        <!--<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span
-            class="navbar-toggler-icon"></span> </button>-->
-        <div class="material-icons navbar-toggler ml-auto"><a href="javascript:void(0)" onclick="NavExpended()">menu</a>
-        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
             <ul class="navbar-nav">
-                                
-            </ul>
-        </div>
-        <div class="collapse navbar-collapse flex-grow-0" style="margin-left:auto;" id="navbarNavRight">
-            <ul class="navbar-nav" id="sessioninfo">
                 <li class="nav-item ">
-                    <a class="nav-link" href="javascript:void(0)"
-                        onclick="ClickLoadPage('signin', true)">Sign In &nbsp;</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="javascript:void(0)"
-                        onclick="ClickLoadPage('signup', true)">Sign Up</a> 
+                    <a class="nav-link">home</a>
                 </li>
             </ul>
-            <!--
-            <ul class="navbar-nav" id="sessioninfo">
-                <li class="nav-item "> <a class="nav-link" href="javascript:void(0)"
-                        onclick="ClickLoadPage('signin', true)">Sign
-                        In</a> </li>
-                <li class="nav-item "> <a class="nav-link" href="javascript:void(0)"
-                        onclick="ClickLoadPage('signup', true)">Sign
-                        Up</a> </li>
-            </ul>
-            -->
         </div>
     </div>
 </nav>

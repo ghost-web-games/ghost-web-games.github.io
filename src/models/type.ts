@@ -1,16 +1,14 @@
-import { GhostWebUser } from "./param";
 
 declare global {
     interface Window {
         ClickLoadPage: (key: string, from: boolean, ...arg: string[]) => void;
         MasterAddr: string;
-        MasterNode: GhostWebUser;
         NodeCount: number;
     }
 }
 
-interface IPage {
-    Run(str: string): boolean;
+export interface IPage {
+    Run(): Promise<boolean>;
     Release(): void;
 }
 
@@ -23,3 +21,20 @@ export type UserAccount = {
     port: string,
     wport: string,
 }
+
+export type StoreData = {
+    id?: string
+    title: string
+    date: number
+    data: string
+}
+
+export type CategoryTree = {
+    id: string
+    title: string
+    date: number
+    parentId?: string
+    children: CategoryTree[]
+    postIds: string[]
+}
+

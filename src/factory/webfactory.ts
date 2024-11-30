@@ -1,55 +1,50 @@
-import { BlockStore } from "../views/store";
 import { Session } from "../models/session";
-import { FuncMap } from "../models/type";
+import { CategoryTree, FuncMap, StoreData } from "../models/type";
 import { Socket } from "../libs/socket"
-import { HonDetail } from "../views/hondetail";
-import { Hons } from "../views/hons";
-import { Hon } from "../views/hon";
-import { NewHon } from "../views/newhon";
-import { Signup } from "../views/signup";
-import { Signin } from "../views/signin";
-import { GhostWebUser } from "../models/param";
+import Main from "../views/main";
+import DataManager from "../models/datamgr";
+import CategoryView from "../models/cateview";
+import Post from "../views/post";
+
+export type GlobalData = {
+    root: CategoryTree
+    posts: StoreData[]
+    postMap: Map<string, StoreData>
+    Loaded: boolean
+}
+
 
 export class WebFactory {
-    blockStore: BlockStore
     socket: Socket
     session: Session
-    signIn: Signin
-    signUp: Signup
-    hon: Hon
-    hons: Hons
-    hondetail: HonDetail
-    newHon: NewHon
-    
+    data: GlobalData = {
+        root: {
+            id: "root",
+            title: "",
+            date: 1,
+            children: [],
+            postIds: []
+        },
+        posts: [],
+        postMap: new Map<string, StoreData>(),
+        Loaded: false
+    }
+    dataMgr = new DataManager(this.data)
+    cateView = new CategoryView(this.data, {})
 
     public constructor() {
-        this.blockStore = new BlockStore();
         this.socket = new Socket()
-
         this.session = new Session()
-
-        this.signIn = new Signin(this.blockStore, this.session)
-        this.signUp = new Signup(this.blockStore, this.session)
-        this.hon = new Hon(this.blockStore, this.session)
-        this.hons = new Hons(this.blockStore, this.session)
-        this.hondetail = new HonDetail(this.blockStore, this.session)
-        this.newHon = new NewHon(this.blockStore, this.session)
     }
 
     public Build(): FuncMap {
 
         const funcMap: FuncMap = {
-            "signin": new Signin(this.blockStore, this.session),
-            "signup": new Signup(this.blockStore, this.session),
-            "hon": new Hon(this.blockStore, this.session),
-            "hons": this.hons,
-            "main": this.hons,
-            "hondetail": new HonDetail(this.blockStore, this.session),
-            "newhon": new NewHon(this.blockStore, this.session),
+            "main": new Main(this.data, this.cateView),
+            "post": new Post(this.data, this.cateView),
         };
         return funcMap;
     }
 
-    public GetBlockStore(): BlockStore { return this.blockStore; }
     public GetSession(): Session { return this.session; }
 }

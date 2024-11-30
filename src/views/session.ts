@@ -1,4 +1,3 @@
-import { SigninTxId } from "../models/tx";
 
 export type HonUser = {
     Email: string,
@@ -19,7 +18,7 @@ export class Session {
     }
     public GetHonUser(): HonUser { return this.m_user; }
     public RequestSignIn(email: string, password: string, callback: Function) {
-        const addr = window.MasterAddr + "/glambda?txid=" + encodeURIComponent(SigninTxId);
+        const addr = window.MasterAddr + "/glambda?txid="
         const formData = new FormData()
         formData.append("key", email)
         formData.append("email", email)

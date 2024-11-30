@@ -1,0 +1,30 @@
+{
+  "id": "root",
+  "title": "",
+  "date": 1,
+  "children": [
+    {
+      "id": "1732835373833-0",
+      "title": "Basic",
+      "date": 1732835373833,
+      "parentId": "root",
+      "children": [
+        {
+          "id": "1732835393010-0",
+          "title": "Threejs Starter",
+          "date": 1732835393010,
+          "parentId": "1732835373833-0",
+          "children": [],
+          "postIds": [
+            "1732835652325_6",
+            "1732836575595_7"
+          ]
+        }
+      ],
+      "postIds": []
+    }
+  ],
+  "postIds": [
+    "1732835652325_6"
+  ]
+}
