@@ -45,7 +45,7 @@ export default class Main extends Page implements IPage {
         return html
     }
     RecentPosts() {
-        this.data.posts.sort((a, b) => a.date - b.date)
+        this.data.posts.sort((a, b) => b.date - a.date)
         let html = ""
         for (let i = 0; i < 3; i++) {
             if (!this.data.posts[i]) break
