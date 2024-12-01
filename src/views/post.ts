@@ -1,11 +1,7 @@
-import EditorJS, { OutputData, ToolConstructable } from "@editorjs/editorjs";
-import Header from "@editorjs/header"
-import Paragraph from "@editorjs/paragraph";
 import Page from "./page";
 import { GlobalData } from "../factory/webfactory";
 import CategoryView from "../models/cateview";
 import { CategoryTree } from "../models/type";
-import ImageTool from "@editorjs/image";
 import Editor from "../models/editor";
 
 export default class Post extends Page {
@@ -54,18 +50,6 @@ export default class Post extends Page {
                 return html
             },
         }
-    }
-    waitForCondition(conditionFunc: () => boolean, interval: number = 100): Promise<void> {
-        return new Promise((resolve) => {
-            const checkCondition = () => {
-                if (conditionFunc()) {
-                    resolve();
-                } else {
-                    setTimeout(checkCondition, interval);
-                }
-            };
-            checkCondition();
-        });
     }
     public async Run(): Promise<boolean> {
         await this.LoadHtml()

@@ -5,9 +5,11 @@ import Main from "../views/main";
 import DataManager from "../models/datamgr";
 import CategoryView from "../models/cateview";
 import Post from "../views/post";
+import Posts from "../views/posts";
 
 export type GlobalData = {
     root: CategoryTree
+    cateMap: Map<string, CategoryTree>
     posts: StoreData[]
     postMap: Map<string, StoreData>
     Loaded: boolean
@@ -25,6 +27,7 @@ export class WebFactory {
             children: [],
             postIds: []
         },
+        cateMap: new Map<string, CategoryTree>(),
         posts: [],
         postMap: new Map<string, StoreData>(),
         Loaded: false
@@ -42,6 +45,7 @@ export class WebFactory {
         const funcMap: FuncMap = {
             "main": new Main(this.data, this.cateView),
             "post": new Post(this.data, this.cateView),
+            "posts": new Posts(this.data, this.cateView),
         };
         return funcMap;
     }

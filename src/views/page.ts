@@ -71,4 +71,16 @@ export default class Page {
             content.replaceChildren()
         }
     }
+    waitForCondition(conditionFunc: () => boolean, interval: number = 100): Promise<void> {
+        return new Promise((resolve) => {
+            const checkCondition = () => {
+                if (conditionFunc()) {
+                    resolve();
+                } else {
+                    setTimeout(checkCondition, interval);
+                }
+            };
+            checkCondition();
+        });
+    }
 }

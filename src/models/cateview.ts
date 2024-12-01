@@ -27,7 +27,8 @@ export default class CategoryView {
         <nav class="nav nav-underline justify-content-between">`
         this.data.root.children.forEach((node) => {
             html += `
-                <a class="hand nav-item nav-link link-body-emphsis">${node.title}</a>
+                <a class="hand nav-item nav-link link-body-emphsis" 
+                onclick='ClickLoadPage("posts", false, "&cateid=${node.id}")'>${node.title}</a>
             `
         })
         html +=`</nav> `

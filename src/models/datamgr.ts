@@ -13,10 +13,12 @@ export default class DataManager {
         }
         const response = await axios.get(this.url, { params })
         this.data.root = response.data as CategoryTree
+        this.data.cateMap.set(this.data.root.id, this.data.root)
         await this.LoadCategoryPost(this.data.root)
         this.data.Loaded = true
     }
     async LoadCategoryPost(node: CategoryTree) {
+        this.data.cateMap.set(node.id, node)
         const p1 = node.postIds.map(async (id) => {
             await this.LoadPost(id)
         })
