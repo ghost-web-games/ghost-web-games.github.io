@@ -31,14 +31,17 @@ export default class Post extends Page {
             this.editor.Render(JSON.parse(post.data))
         })
     }
-    StartUpdate() {
-        const html = this.cateView.StartUpdate()
-        const dom = document.getElementById("category")
-        if (dom) dom.innerHTML = html
+    StartUpdate(id: string) {
+        this.cateView.StartUpdate(id)
+        const dom = document.getElementById(`post-${id}`)
+        if (dom) {
+            dom.classList.add("fw-bold")
+            dom.classList.add("text-decoration-underline")
+        }
     }
     InitTree() {
         this.cateView.param = {
-            domId: "catelist",
+            domId: "category",
             nodeBeforeHtmlEvent: (node: CategoryTree, _: number) => {
                 let html = ""
                 for (const id of node.postIds) {
@@ -61,7 +64,7 @@ export default class Post extends Page {
             return false
         }
         this.InitTree()
-        this.StartUpdate()
+        this.StartUpdate(this.postId)
         this.InitPostBinding()
 
         return true
