@@ -55,8 +55,7 @@ export default class Main extends Page implements IPage {
     }
     UpdateMainPost() {
         let find: StoreData | undefined
-        let content = ""
-        let imgUrl = ""
+        let content = "", imgUrl = ""
         this.data.posts.every((post) => {
             const output = JSON.parse(post.data) as OutputData
             output.blocks.forEach((data) => {
@@ -76,6 +75,10 @@ export default class Main extends Page implements IPage {
         if (dom) {
             dom.style.backgroundImage = `url("${imgUrl}")`
             dom.classList.add("animated")
+        }
+        const more = document.getElementById("mainmore")
+        if (more) more.onclick = () => {
+            window.ClickLoadPage("post", false, "&postid=" + find?.id)
         }
         this.domInnerText("maintitle", find.title)
         this.domInnerText("maincontent", content)
