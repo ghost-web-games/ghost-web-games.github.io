@@ -47,7 +47,7 @@ export default class Main extends Page implements IPage {
     RecentPosts() {
         this.data.posts.sort((a, b) => b.date - a.date)
         let html = ""
-        for (let i = 0; i < 3; i++) {
+        for (let i = 1; i < 5; i++) {
             if (!this.data.posts[i]) break
             html += this.drawRecentPost(this.data.posts[i])
         }
@@ -121,9 +121,9 @@ export default class Main extends Page implements IPage {
         await this.waitForCondition(() => this.data.Loaded)
         this.InitTree()
         this.StartUpdate()
-        this.InitPostBinding()
         this.UpdateMainPost()
         this.RecentPosts()
+        this.InitPostBinding()
 
         return true
     }
