@@ -45,7 +45,10 @@ export default class Posts extends Page {
             const date = new Date(post.date)
             html += `
             <div class="row">
-                <div class="col-md-4 mb-4">${(imgUrl != "") ? `<img src="${imgUrl}" class="rounded" style="width:100%;">` : ""}</div>
+                <div class="col"><hr class="border-top"/></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4${(imgUrl != "") ? ` mb-4"><img src="${imgUrl}" class="rounded" style="width:100%;">` : `">`}</div>
                 <div class="col-md-8 mb-4">
                     <h3 class="mb-0"><a id="post-${id}" class="hand"
                     onclick="window.ClickLoadPage('post', false, '&postid=${id}')">${post.title}</a></h3>
