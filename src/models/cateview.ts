@@ -74,14 +74,13 @@ export default class CategoryView {
         return false
     }
     UpdateCategory(node: CategoryTree, depth: number): string {
-        const padding = "&nbsp;".repeat(depth)
         let html = `
-        <li class="mb-1">${padding}
+        <li class="mb-1">
         <button id="btn-${node.id}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
             data-bs-toggle="collapse" data-bs-target="#h${node.id}-collapse" aria-expanded="false">
             ${node.title}
         </button>
-        <div class="collapse" id="h${node.id}-collapse">
+        <div class="collapse border-start ms-3" id="h${node.id}-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
         `
         this.treemap.set(node.id, node)

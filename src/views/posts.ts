@@ -50,7 +50,7 @@ export default class Posts extends Page {
             <div class="row">
                 <div class="col-md-4${(imgUrl != "") ? ` mb-4"><img src="${imgUrl}" class="rounded" style="width:100%;">` : `">`}</div>
                 <div class="col-md-8 mb-4">
-                    <h3 class="mb-0"><a id="post-${id}" class="hand"
+                    <h3 class="mb-0"><a id="post-${id}" class="hand ms-1"
                     onclick="window.ClickLoadPage('post', false, '&postid=${id}')">${post.title}</a></h3>
                     <div class="mb-1 text-body-secondary">${new Intl.DateTimeFormat('en-US', {
                             month: "long",
@@ -81,7 +81,8 @@ export default class Posts extends Page {
                     const post = this.data.postMap.get(id)
                     if (!post) continue
                     //html += "&nbsp;".repeat(depth + 1)
-                    html += `<li class="mb-1"><a id="post-${id}">${post.title}</a></li>`
+                    html += `<li class="mb-1"><a id="post-${id}" class="hand"
+                    onclick="window.ClickLoadPage('post', false, '&postid=${id}'>${post.title}</a></li>`
                 }
                 return html
             },
