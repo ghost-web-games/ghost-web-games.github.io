@@ -1,0 +1,6 @@
+{
+  "title": "test",
+  "date": 1733537910860,
+  "data": "{\n  \"time\": 1733538400506,\n  \"blocks\": [\n    {\n      \"id\": \"SyFrqmSSfz\",\n      \"type\": \"code\",\n      \"data\": {\n        \"code\": \"super(\\\"views/main.html\\\")\\n        ipc.RegisterMsgHandler(\\\"saveResult\\\", (ret: boolean) => {\\n            if (ret) {\\n                const out = document.getElementById(\\\"output\\\") as HTMLDivElement\\n                out.innerText = \\\"save complete\\\"\\n                this.ipc.SendMsg(\\\"getPostList\\\");\\n            }\\n        })\",\n        \"language\": \"javascript\",\n        \"showlinenumbers\": true\n      }\n    },\n    {\n      \"id\": \"Nyi-006s0N\",\n      \"type\": \"code\",\n      \"data\": {\n        \"code\": \"this.ipc.SendMsg(\\\"getPostList\\\");\",\n        \"language\": \"javascript\",\n        \"showlinenumbers\": true\n      }\n    }\n  ],\n  \"version\": \"2.30.7\"\n}",
+  "id": "1733537910785_19"
+}

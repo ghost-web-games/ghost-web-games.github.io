@@ -68,21 +68,19 @@ export default class Posts extends Page {
         if(dom) dom.insertAdjacentHTML("afterbegin", html)
     }
     StartUpdate() {
-        const html = this.cateView.StartUpdate()
-        const dom = document.getElementById("category")
-        if (dom) dom.innerHTML = html
+        this.cateView.StartUpdate()
     }
     InitTree() {
         this.cateView.param = {
-            domId: "catelist",
+            domId: "category",
             nodeBeforeHtmlEvent: (node: CategoryTree, _: number) => {
                 let html = ""
                 for (const id of node.postIds) {
                     const post = this.data.postMap.get(id)
                     if (!post) continue
-                    //html += "&nbsp;".repeat(depth + 1)
-                    html += `<li class="mb-1"><a id="post-${id}" class="hand"
-                    onclick="window.ClickLoadPage('post', false, '&postid=${id}'>${post.title}</a></li>`
+                    html += `<li class="mb-1"><a id="post-${id}" class="hand ms-1"
+                    onclick="window.ClickLoadPage('post', false, '&postid=${id}')">${post.title}</a>
+                    </li>`
                 }
                 return html
             },

@@ -47,9 +47,9 @@ export default class Post extends Page {
                 for (const id of node.postIds) {
                     const post = this.data.postMap.get(id)
                     if (!post) continue
-                    //html += "&nbsp;".repeat(depth + 1)
                     html += `<li class="mb-1"><a id="post-${id}" class="hand ms-1"
-                    onclick="window.ClickLoadPage('post', false, '&postid=${id}')">${post.title}</a></li>`
+                    onclick="window.ClickLoadPage('post', false, '&postid=${id}')">${post.title}</a>
+                    </li>`
                 }
                 return html
             },

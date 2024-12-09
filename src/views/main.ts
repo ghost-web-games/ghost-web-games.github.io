@@ -90,7 +90,7 @@ export default class Main extends Page implements IPage {
     }
     InitTree() {
         this.cateView.param = {
-            domId: "catelist",
+            domId: "category",
             nodeBeforeHtmlEvent: (node: CategoryTree, _: number) => {
                 let html = ""
                 for (const id of node.postIds) {
