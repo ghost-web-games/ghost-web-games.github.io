@@ -1,3 +1,7 @@
 [submodule "ganada"]
 	path = ganada
 	url = https://github.com/ghost-web-games/ganada.git
+[submodule "games/aitrainer"]
+	path = games/aitrainer
+	url = https://github.com/ghost-web-games/aitrainer.git
+	branch = main
